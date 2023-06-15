@@ -1,0 +1,219 @@
+:root {
+    --primary: #64b4f6;
+    --primary-variant: #1c75d2;
+    --secondary: #00bab8;
+    --secondary-variant: #008072;
+    --background: #404040;
+    --background-secondary: #282828;
+    --background-dm: #181818;
+    --background-secondary-dm: #121212;
+    --background-lm: #FFFFFF;
+    --background-variant-lm: #f4f9fc;
+    --background-secondary-lm: #eeeeee;
+    --background-scroll-lm: #777777;
+	--on-primary: #FFFFFF;
+    --on-secondary: #000000;
+	--on-error: #FFFFFF;
+    --error-dm: #CF6679;
+    --error-lm: #B00020;
+  }
+
+img {
+	width:80px;
+}
+
+body{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background-color: var(--on-primary);
+	background-image: linear-gradient(-90deg, var(--background-secondary-dm), var(--background));
+	font-family: arial;
+	text-shadow: 1px 1px 2px var(--on-secondary);
+}
+
+p {
+	text-shadow: .25px .25px .5px var(--on-secondary);
+}
+
+.container-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+.header {
+	height: 100px;
+	max-height: 100%;
+	font-size: 50px;
+	text-align: center;
+	line-height: 100px;
+	font-family: arial;
+	color: #fff;
+}
+
+.container-score {
+	display: inherit;
+	flex-direction: row;
+	justify-content: center;
+	gap: 75px;
+	/* justify-content: space-between; */
+	/* align-items: center; */
+	width: 100%;
+}
+
+.score {
+	display: inherit;
+	flex-direction: row;
+	color: var(--on-primary);
+	max-height: 100%;
+	font-size: 32px;
+	text-align: center;
+}
+
+.hide {
+	display: none;
+}
+
+.meld-textbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: 30px;
+	background-color: var(--background-secondary-lm);
+	box-shadow: 
+        inset 0px 0px 2px var(--on-secondary),
+        0px 0px 10px var(--on-secondary); 
+}
+
+.dice {
+	max-width: 520px;
+	margin:0 auto;
+}
+
+.btn-row {
+	display: inherit;
+	justify-content: center;
+	width: 100%;
+	gap: 145px;
+}
+
+.button {
+	width: 200px;
+	border: none;
+	border-radius: 6px;
+  	background-color: var(--primary-variant);
+  	color: var(--on-primary);
+  	padding: 15px 32px;
+  	text-align: center;
+  	display: inline-block;
+  	font-size: 16px;
+	font-weight: 600;
+	box-shadow: 0px 0px 3px var(--on-secondary);
+	text-shadow: 1px 1px 2px var(--on-secondary);
+	letter-spacing: 1.5px;
+	transition: all 0.5s;
+}
+
+.button:hover {
+	background-color: var(--secondary);
+	color: var(--on-secondary);
+	text-shadow: none;
+	cursor: pointer;
+}
+
+.container-bottom {
+	display: inherit;
+	gap: 45px;
+}
+
+.container-player-radios {
+	display: inherit;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.players {
+	display: inherit;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 200px;
+	height: 50px;
+	background-color: var(--secondary-variant);
+	border-radius: 6px;
+	cursor: pointer;
+	gap: 20px;
+}
+
+input + label {
+	font-weight: 600;
+	color: var(--on-primary);
+	letter-spacing: 1.5px;
+	box-shadow: 0px 0px 3px var(--on-secondary);
+}
+
+input.active + label {
+	border: .5px solid var(--background-secondary);
+    background-color: var(--secondary);
+    box-shadow: 
+        inset 0px 0px 5px var(--on-secondary),
+        0px 0px 3px var(--on-secondary);
+}
+
+.container-player-radios input {
+	display: none ;
+}
+
+
+
+.table-container {
+	display: inherit;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border-radius: 6px;
+	text-shadow: none;
+}
+
+.scoreboard {
+	border-collapse: separate;
+	border: .5px solid var(--background-scroll-lm);
+	background-color: var(--background-secondary);
+	border-radius: 6px;
+	width: 300px;
+	box-shadow: 0px 0px 3px var(--on-secondary);
+}
+
+.scoreboard td,
+.scoreboard th {
+	color: var(--on-primary);
+	border: .5px solid var(--background-scroll-lm);
+	padding: 6px;
+}
+
+.scoreboard th {
+	padding: 10px 0;
+	background-color: var(--secondary-variant);
+	color: var(--on-primary);
+	letter-spacing: 1.2px;
+}
+
+.scoreboard tr:nth-child(even) {
+	background-color: var(--background);
+}
+
+#table-header {
+	text-align: center;
+}
+
+.transparent{
+	/*For dice that are selected*/
+	opacity: 0.55;
+}
