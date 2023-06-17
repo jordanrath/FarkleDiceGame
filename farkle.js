@@ -40,25 +40,33 @@ const rollDice = () => {
 		}
 	}
 	// check the unselected dice to see if they belong in a meld, if they do not, initialize the dice and reset the score.
-	let count = diceArr.filter(dice => (dice.clicked === 0)).length;
-	diceArr.forEach(click => {
-		let textbox = document.getElementById('meld-text');
+	// const meldResetHelper = (event) => {
+		let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
+		// let dataNumberClicked = event.currentTarget.getAttribute("data-number");
+		// let clickedDice = diceArr[dataNumberClicked].value;
+		// let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
+		diceArr.forEach(click => {
+			let textbox = document.getElementById('meld-text');
 
-		if (click.clicked === 0) {
-			checkMeld = click.value;
-			console.log('checkmeld', checkMeld, 'unclicked dice', count)
-			if (checkMeld !== 1 && checkMeld !== 5 && count < 3) {
-				textbox.innerHTML = `There are no melds, try again!`;
+			if (click.clicked === 0) {
+				checkMeld = click.value;
+				console.log('checkmeld', checkMeld, 'count unclicked', counted)
+				if (checkMeld !== 1 && checkMeld !== 5 && counted < 3) {
+					textbox.innerHTML = `There are no melds, try again!`;
+					setScore(0);
+					initializeDice();
+				}
 			}
-		}
-//////////////currently will throw the reset on the first sight of a non meld////////////////////////////////////////////////////
-		// if (checkMeld !== 1 || checkMeld !== 5 || checkMeld < 3) {
-		// 	textbox.innerHTML = `${checkMeld} melds!`;
-		// 	updateMeldArray(dataNumberClicked);
-		// }////////////////////////////////////////////
-	})
+////	//////////currently will throw the reset on the first sight of a non meld////////////////////////////////////////////////////
+			// if (checkMeld !== 1 || checkMeld !== 5 || checkMeld < 3) {
+			// 	textbox.innerHTML = `${checkMeld} melds!`;
+			// 	updateMeldArray(dataNumberClicked);
+			// }////////////////////////////////////////////
+		})
+	// }
+	// meldResetHelper();
 	updateDiceImg();
-	console.log(diceArr)
+	console.log('update')
 };
 
 /**
@@ -155,6 +163,9 @@ const calcScore = () => {
 	return result;
 };
 
+/**
+ * calls functions to track score totals and reset dice.
+ */
 const trackScore = () => {
 	const result = calcScore();
 	meldArr = [];
@@ -165,6 +176,9 @@ const trackScore = () => {
 };
 
 let playerOne = true;
+/**
+ * Sets score depending on player.
+ */
 const setScore = (result) => {
 	const meldToBank = document.getElementById('bank');
 	
