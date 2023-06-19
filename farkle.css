@@ -26,6 +26,7 @@ body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
@@ -41,10 +42,23 @@ p {
 
 .container-main {
 	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 150px;
+	padding-top: 100px;
+}
+
+.container-main__left {
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 30px;
+}
+
+.container-main__right {
+	display: flex;	
 }
 
 .header {
@@ -62,8 +76,6 @@ p {
 	flex-direction: row;
 	justify-content: center;
 	gap: 75px;
-	/* justify-content: space-between; */
-	/* align-items: center; */
 	width: 100%;
 }
 
@@ -135,8 +147,10 @@ p {
 
 .container-player-radios {
 	display: inherit;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: space-between;
 	gap: 10px;
+	width: 100%;
 }
 
 .players {

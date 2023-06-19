@@ -57,14 +57,10 @@ const rollDice = () => {
 					initializeDice();
 				}
 			}
-////	//////////currently will throw the reset on the first sight of a non meld////////////////////////////////////////////////////
-			// if (checkMeld !== 1 || checkMeld !== 5 || checkMeld < 3) {
-			// 	textbox.innerHTML = `${checkMeld} melds!`;
-			// 	updateMeldArray(dataNumberClicked);
-			// }////////////////////////////////////////////
-		})
-	// }
-	// meldResetHelper();
+		});
+
+	//empty meldArr to reset the meld check after user has selected meldable dice
+	// meldArr = [];
 	updateDiceImg();
 	console.log('update')
 };
@@ -241,3 +237,15 @@ const trackPlayer = (result) => {
 		playerOneScore.innerHTML = `P1 Total : ${player1Score}`;
 	}
 };
+
+
+// create player1 & player 2 score
+// pass result into track player which is called in setScore()
+// copy/paste code from setScore into trackScore()
+// set playerOne = false globally
+// in trackPlayer set condition if (!playerOne) player1Score += playerScore; and update inner html, do opposite for player2
+// add active class to the input of playerOne so that it is chosen right away
+// check 'multi = document...' to see if it's active to only run the if if that condition is true
+
+// add player1/player2 score above setPlayer and add innerHTML modifiers to set score to 0 on single/multiplayer click
+// above that unser single.checked && multi.checked set playerOne = !playerOne to reset the order

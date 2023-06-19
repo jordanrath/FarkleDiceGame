@@ -7,69 +7,69 @@
 </head>
 
 <body onload="setupInitializeFunc()">
+	<header class="header">Welcome to Farkle!</header>
 	<div class="container-main">
-		<header class="header">Welcome to Farkle!</header>
-		<!--  Player Score -->
-		<div class="container-score">
-			<div id="player1" class="score"> P1 Total : 0 </div>
-			<div id="player2" class="score hide"> P2 Total : 0 </div>
-		</div>
-		<div class="meld-textbox">
-			<p id="meld-text" class="meld-text"></p>
-		</div>
-		<!-- Dice images -->
-		<div class="dice"> 
-			<img 
-				src="images/1.png" 
-				id="die1" 
-				data-number="0" 
-			>
-			<img 
-				src="images/2.png" 
-				id="die2" 
-				data-number="1" 
-			>
-			<img 
-				src="images/3.png" 
-				id="die3" 
-				data-number="2" 
-			>
-			<img 
-				src="images/4.png" 
-				id="die4" 
-				data-number="3" 
-			>
-			<img 
-				src="images/5.png" 
-				id="die5" 
-				data-number="4" 
-			>
-			<img 
-				src="images/6.png" 
-				id="die6" 
-				data-number="5" 
-			>
-		</div>
-		<!-- Bank Score -->
-		<div class="container-bank">
-			<div id="bank" class="score"> 0 </div>
-		</div>
-		<!-- Button row -->
-		<div class="btn-row">
-			<button 
-				id="btn-rolldice" 
-				class="button roll" 
-			>
-				Roll Dice
-			</button>
-			<button 
-				id="btn-trackscore" 
-				class="button bank" 
-			>
-				Bank Score
-			</button>
-		</div>
-		<div class="container-bottom">
+		<div class="container-main__left">
+			<!--  Player Score -->
+			<div class="container-score">
+				<div id="player1" class="score"> P1 Total : 0 </div>
+				<div id="player2" class="score hide"> P2 Total : 0 </div>
+			</div>
+			<div class="meld-textbox">
+				<p id="meld-text" class="meld-text"></p>
+			</div>
+			<!-- Dice images -->
+			<div class="dice"> 
+				<img 
+					src="images/1.png" 
+					id="die1" 
+					data-number="0" 
+				>
+				<img 
+					src="images/2.png" 
+					id="die2" 
+					data-number="1" 
+				>
+				<img 
+					src="images/3.png" 
+					id="die3" 
+					data-number="2" 
+				>
+				<img 
+					src="images/4.png" 
+					id="die4" 
+					data-number="3" 
+				>
+				<img 
+					src="images/5.png" 
+					id="die5" 
+					data-number="4" 
+				>
+				<img 
+					src="images/6.png" 
+					id="die6" 
+					data-number="5" 
+				>
+			</div>
+			<!-- Bank Score -->
+			<div class="container-bank">
+				<div id="bank" class="score"> 0 </div>
+			</div>
+			<!-- Button row -->
+			<div class="btn-row">
+				<button 
+					id="btn-rolldice" 
+					class="button roll" 
+				>
+					Roll Dice
+				</button>
+				<button 
+					id="btn-trackscore" 
+					class="button bank" 
+				>
+					Bank Score
+				</button>
+			</div>
 			<!-- Player Buttons -->	
 			<div class="container-player-radios">
 				<input type="radio" name="players" id="singleplayer" value="singleplayer" class="active" onclick="setPlayer()" >
@@ -77,69 +77,72 @@
 				<input type="radio" name="players" id="multiplayer" value="multiplayer" onclick="setPlayer()" >
 				<label for="multiplayer" class="players multi">Multiplayer</label>
 			</div>
-			<!-- Scoring Table -->	
-			<div class="table-container">
-				<table id="scoreboard" class="scoreboard">
-					<tr>
-						<th colspan="2" id="table-header">Will It Meld?</th>
-					</tr>
-					<tr>
-						<th>Dice</th>
-						<th>Value</th>
-					</tr>
-					<tr>
-						<td>Ones</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>Fives</td>
-						<td>50</td>
-					</tr>
-					<tr>
-						<td>Triple One</td>
-						<td>1000</td>
-					</tr>
-					<tr>
-						<td>Triple Two</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<td>Triple Three</td>
-						<td>300</td>
-					</tr>
-					<tr>
-						<td>Triple Four</td>
-						<td>400</td>
-					</tr>
-					<tr>
-						<td>Triple Five</td>
-						<td>500</td>
-					</tr>
-					<tr>
-						<td>Triple Six</td>
-						<td>600</td>
-					</tr>
-					<tr>
-						<td>Four of a kind</td>
-						<td>1000</td>
-					</tr>
-					<tr>
-						<td>Five of a kind</td>
-						<td>2000</td>
-					</tr>
-					<tr>
-						<td>Six of a kind</td>
-						<td>3000</td>
-					</tr>
-					<tr>
-						<td>Three pairs</td>
-						<td>1500</td>
-					</tr>
-					<tr>
-						<td>Full run</td>
-						<td>2500</td>
-					</tr>
-				</table>
+		</div>
+			<div class="container-main__right">
+				<!-- Scoring Table -->	
+				<div class="table-container">
+					<table id="scoreboard" class="scoreboard">
+						<tr>
+							<th colspan="2" id="table-header">Will It Meld?</th>
+						</tr>
+						<tr>
+							<th>Dice</th>
+							<th>Value</th>
+						</tr>
+						<tr>
+							<td>Ones</td>
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>Fives</td>
+							<td>50</td>
+						</tr>
+						<tr>
+							<td>Triple One</td>
+							<td>1000</td>
+						</tr>
+						<tr>
+							<td>Triple Two</td>
+							<td>200</td>
+						</tr>
+						<tr>
+							<td>Triple Three</td>
+							<td>300</td>
+						</tr>
+						<tr>
+							<td>Triple Four</td>
+							<td>400</td>
+						</tr>
+						<tr>
+							<td>Triple Five</td>
+							<td>500</td>
+						</tr>
+						<tr>
+							<td>Triple Six</td>
+							<td>600</td>
+						</tr>
+						<tr>
+							<td>Four of a kind</td>
+							<td>1000</td>
+						</tr>
+						<tr>
+							<td>Five of a kind</td>
+							<td>2000</td>
+						</tr>
+						<tr>
+							<td>Six of a kind</td>
+							<td>3000</td>
+						</tr>
+						<tr>
+							<td>Three pairs</td>
+							<td>1500</td>
+						</tr>
+						<tr>
+							<td>Full run</td>
+							<td>2500</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
