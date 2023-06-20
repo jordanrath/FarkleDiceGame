@@ -1,4 +1,6 @@
 let diceArr = [];
+let arrays = [];
+let scoreArr = [];
 let meldArr = [];
 let numberOfDice = 6;
 let scoreTotal = 0;
@@ -59,8 +61,9 @@ const rollDice = () => {
 			}
 		});
 
-	//empty meldArr to reset the meld check after user has selected meldable dice
-	// meldArr = [];
+	//empty scoreArr to reset the meld check after user has selected meldable dice
+	// scoreArr = [];
+	meldArr = [];
 	updateDiceImg();
 	console.log('update')
 };
@@ -89,7 +92,7 @@ const willItMeld = (event) => {
 	if (diceRolled) {
 		if (clickedDice === 1 || clickedDice === 5 || count >= 3) {
 			textbox.innerHTML = `${clickedDice} melds!`;
-			updateMeldArray(dataNumberClicked);
+			updateScoreArray(dataNumberClicked);
 		} else {
 			textbox.innerHTML = `${clickedDice} is not part of a meld.`
 		}
@@ -100,24 +103,31 @@ const willItMeld = (event) => {
 };
 
 /**
- * Checks if a dice has been added to the meld and applies styles.
+ * Checks if a dice has been added to the score and applies styles.
  */
-const updateMeldArray = (dataNumberClicked) => {
+const updateScoreArray = (dataNumberClicked) => {
 	let diceClicked = diceArr[dataNumberClicked];
 
 	if (diceClicked.clicked === 0) {
 		diceClicked.clicked = 1;
-		meldArr.push(diceClicked.value);
-		console.log(meldArr)
+		arrays.push({
+			score: scoreArr.push(diceClicked.value),
+			meld: meldArr.push(diceClicked.value)
+		})
+		// scoreArr.push(diceClicked.value);
+		// meldArr.push(diceClicked.value);
+		console.log('melds array', meldArr)
+		console.log('score array', scoreArr)
 	} else {
 		diceClicked.clicked = 0;
-		let remove = meldArr.indexOf(diceClicked.value);
+		let remove = scoreArr.indexOf(diceClicked.value);
+		scoreArr.splice(remove, 1);
 		meldArr.splice(remove, 1);
 	}
 
-	const newMeldTotal = calcScore();
+	const newScoreTotal = calcScore();
 	const bank = document.getElementById('bank');
-	bank.innerHTML = newMeldTotal;
+	bank.innerHTML = newScoreTotal;
 };
 
 //TODO: Fix issues with all counts not adding correctly and add three pairs and full run.
@@ -129,7 +139,7 @@ const calcScore = () => {
 	let result = 0;
 	const count = {};
 
-	for (const num of meldArr) {
+	for (const num of scoreArr) {
 		count[num] = (count[num] ? count[num] + 1 : 1);
 		let currentScore = 0;
 
@@ -165,6 +175,7 @@ const calcScore = () => {
 const trackScore = () => {
 	const result = calcScore();
 	meldArr = [];
+	scoreArr = [];
 	setScore(result);
 	initializeDice();
 	diceRolled = false;

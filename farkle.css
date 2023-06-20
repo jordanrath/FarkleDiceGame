@@ -134,7 +134,7 @@ p {
 }
 
 .button:hover {
-	background-color: var(--secondary);
+	background-color: var(--primary);
 	color: var(--on-secondary);
 	text-shadow: none;
 	cursor: pointer;
@@ -230,4 +230,27 @@ input.active + label {
 .transparent{
 	/*For dice that are selected*/
 	opacity: 0.55;
+}
+
+@media screen and (max-width: 1100px) {
+	.container-main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 150px;
+		padding-top: 100px;
+	}
+	
+	.container-main__left {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
+	}
+	
+	.container-main__right {
+		display: flex;	
+	}
 }
