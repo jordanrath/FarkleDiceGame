@@ -43,23 +43,30 @@ const rollDice = () => {
 	}
 	// check the unselected dice to see if they belong in a meld, if they do not, initialize the dice and reset the score.
 	// const meldResetHelper = (event) => {
-		let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
-		// let dataNumberClicked = event.currentTarget.getAttribute("data-number");
-		// let clickedDice = diceArr[dataNumberClicked].value;
-		// let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
-		diceArr.forEach(click => {
-			let textbox = document.getElementById('meld-text');
-
-			if (click.clicked === 0) {
-				checkMeld = click.value;
-				console.log('checkmeld', checkMeld, 'count unclicked', counted)
-				if (checkMeld !== 1 && checkMeld !== 5 && counted < 3) {
-					textbox.innerHTML = `There are no melds, try again!`;
-					setScore(0);
-					initializeDice();
-				}
+	let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
+	// let dataNumberClicked = event.currentTarget.getAttribute("data-number");
+	// let clickedDice = diceArr[dataNumberClicked].value;
+	// let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
+	// let checkMeldCount = checkMeld.filter(dice => (dice.value === clickedDice)).length
+	const allEqual = (arr) => checkMeld.every(val => val === arr[0])
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	diceArr.map(click => {
+		let textbox = document.getElementById('meld-text');
+		if (click.clicked === 0) {
+			checkMeld.push(click.value);
+			console.log(allEqual(checkMeld))
+			// console.log('checkmeld', checkMeld, 'count unclicked', counted)
+			if (checkMeld !== 1 && checkMeld !== 5 && counted < 3) {
+				textbox.innerHTML = `There are no melds, try again!`;
+				setScore(0);
+				initializeDice();
+				scoreArr = [];
 			}
-		});
+		}
+		console.log(allEqual(checkMeld), checkMeld)
+	});
+	checkMeld = [];
 
 	//empty scoreArr to reset the meld check after user has selected meldable dice
 	// scoreArr = [];
@@ -79,6 +86,13 @@ const updateDiceImg = () => {
 		selectedImg.classList.toggle("transparent", diceArr[i].clicked === 1);
 	}
 };
+
+	// const clicksCounter = (event) => {
+	// 	let dataNumberClicked = event.currentTarget.getAttribute("data-number");
+	// 	let clickedDice = diceArr[dataNumberClicked].value;
+	// 	let count = diceArr.filter(dice => (dice.value === clickedDice)).length
+	// }
+	
 
 /**
  * Checks to see if clicked dice can be used.
