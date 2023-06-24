@@ -44,7 +44,10 @@ const rollDice = () => {
 	// check the unselected dice to see if they belong in a meld, if they do not, initialize the dice and reset the score.
 	// const meldResetHelper = (event) => {
 	let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
-
+	// let dataNumberClicked = event.currentTarget.getAttribute("data-number");
+	// let clickedDice = diceArr[dataNumberClicked].value;
+	// let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
+	// let checkMeldCount = checkMeld.filter(dice => (dice.value === clickedDice)).length
 	const allEqual = (arr) => checkMeld.every(val => val === arr[0])
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
