@@ -2,6 +2,7 @@ let diceArr = [];
 let arrays = [];
 let scoreArr = [];
 let meldArr = [];
+let checkMeld = [];
 let numberOfDice = 6;
 let scoreTotal = 0;
 let diceRolled = false;
@@ -32,8 +33,8 @@ const initializeDice = () => {
 
 /**
  * Rolls dice values and sets diceRolled to true to allow user to select dice.
+ * @returns {array} checkMeld;
  */
-let checkMeld = [];
 const rollDice = () => {
 	for(let i = 0; i < numberOfDice; i++) {
 		if (diceArr[i].clicked === 0) {
@@ -41,38 +42,48 @@ const rollDice = () => {
 			diceRolled = true;
 		}
 	}
-	// check the unselected dice to see if they belong in a meld, if they do not, initialize the dice and reset the score.
-	// const meldResetHelper = (event) => {
+
+	let repeatMeld = false;
+	let textbox = document.getElementById('meld-text');
 	let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
-	// let dataNumberClicked = event.currentTarget.getAttribute("data-number");
-	// let clickedDice = diceArr[dataNumberClicked].value;
-	// let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
-	// let checkMeldCount = checkMeld.filter(dice => (dice.value === clickedDice)).length
+
 	const allEqual = (arr) => checkMeld.every(val => val === arr[0])
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	
-	diceArr.map(click => {
-		let textbox = document.getElementById('meld-text');
+
+	//map through after each dice roll creating a new array to store unclicked dice.
+	diceArr.map(click => {	
+		repeatMeld = allEqual(checkMeld);
+
 		if (click.clicked === 0) {
 			checkMeld.push(click.value);
-			console.log(allEqual(checkMeld))
-			// console.log('checkmeld', checkMeld, 'count unclicked', counted)
-			if (checkMeld !== 1 && checkMeld !== 5 && counted < 3) {
-				textbox.innerHTML = `There are no melds, try again!`;
-				setScore(0);
-				initializeDice();
-				scoreArr = [];
-			}
-		}
-		console.log(allEqual(checkMeld), checkMeld)
+			setChecker = new Set(checkMeld);
+		}	
+		return checkMeld;	
 	});
-	checkMeld = [];
+	console.log(checkMeld, repeatMeld)
+	
+	//conditions to check if the current unclicked dice meet the parameters of a meld.
+	if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
+		console.log(`The array [${checkMeld}] didn't contain any melds.`)
+		textbox.innerHTML = `There are no melds, try again!`;
+		setScore(0);
+		initializeDice();
+		scoreArr = [];
+		diceRolled = false;
+	} else if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 6 && repeatMeld == false) {
+		console.log(`The array [${checkMeld}] didn't contain any melds and there were no repeating numbers.`)
+		textbox.innerHTML = `There are no melds, try again!`;
+		setScore(0);
+		initializeDice();
+		scoreArr = [];
+		diceRolled = false;
+	} else {
+		console.log('We found a meld.')
+	}
 
-	//empty scoreArr to reset the meld check after user has selected meldable dice
-	// scoreArr = [];
+	
+	checkMeld = [];
 	meldArr = [];
 	updateDiceImg();
-	console.log('update')
 };
 
 /**
@@ -86,13 +97,6 @@ const updateDiceImg = () => {
 		selectedImg.classList.toggle("transparent", diceArr[i].clicked === 1);
 	}
 };
-
-	// const clicksCounter = (event) => {
-	// 	let dataNumberClicked = event.currentTarget.getAttribute("data-number");
-	// 	let clickedDice = diceArr[dataNumberClicked].value;
-	// 	let count = diceArr.filter(dice => (dice.value === clickedDice)).length
-	// }
-	
 
 /**
  * Checks to see if clicked dice can be used.
@@ -128,10 +132,6 @@ const updateScoreArray = (dataNumberClicked) => {
 			score: scoreArr.push(diceClicked.value),
 			meld: meldArr.push(diceClicked.value)
 		})
-		// scoreArr.push(diceClicked.value);
-		// meldArr.push(diceClicked.value);
-		console.log('melds array', meldArr)
-		console.log('score array', scoreArr)
 	} else {
 		diceClicked.clicked = 0;
 		let remove = scoreArr.indexOf(diceClicked.value);
@@ -144,7 +144,6 @@ const updateScoreArray = (dataNumberClicked) => {
 	bank.innerHTML = newScoreTotal;
 };
 
-//TODO: Fix issues with all counts not adding correctly and add three pairs and full run.
 /**
  * Keeps track of current meld value and count of dice clicked and returns the resut.
  * @param {number} result
