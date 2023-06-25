@@ -163,18 +163,18 @@ const calcScore = () => {
 		} else if (num === 5 && count[num] < 3) {
 			currentScore += 50;
 		} else if (num === 5 && count[num] === 3) {
-			currentScore += 500;
+			currentScore += 500 - 100;
 		}
 
 		for (let i = 1; i <= numberOfDice; i++) {
-			if (i === num && count[i] === 3) {
+			if (num !== 1 && num !== 5 && i === num && count[i] === 3) {
 				currentScore += num * 100;
 			} else if (i === num && count[i] === 4) {
-				currentScore += (1000 - (i * 100));
+				currentScore += (1000 - (num * 100));
 			} else if (i === num && count[i] === 5) {
-				currentScore += 1000;
+				currentScore += (2000 - (num * 100));
 			} else if (i === num && count[i] === 6) {
-				currentScore += 1000;
+				currentScore += (3000 - (num * 100));
 			}
 		}
 		result += currentScore;
