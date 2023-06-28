@@ -109,6 +109,19 @@ p {
 	margin:0 auto;
 }
 
+.roll {
+	animation-duration: .5s;
+	animation-name: roll;
+}
+
+@keyframes roll {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(15deg); }
+	50% { transform: rotate(0eg); }
+	75% { transform: rotate(-15deg); }
+	100% { transform: rotate(0deg); }
+  }
+
 .btn-row {
 	display: inherit;
 	justify-content: center;

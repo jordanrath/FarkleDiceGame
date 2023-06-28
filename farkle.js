@@ -31,16 +31,37 @@ const initializeDice = () => {
 	updateDiceImg();
 };
 
+//////////////////////////////////////////////////////////////////////////
+// const diceRollAnimated = () => {
+// 	for(let i = 0; i < numberOfDice; i++) {
+// 		document.getElementById(`die${i + 1}`).classList.add('roll');
+// 		if (diceArr[i].clicked === 1) {
+// 			document.getElementById(`die${i + 1}`).classList.remove('roll');
+// 		}
+// 		// if (diceArr[i].clicked === 1) {
+// 		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
+// 		// }
+// 	}
+// }
+
+let diceToRoll = '';
 /**
  * Rolls dice values and sets diceRolled to true to allow user to select dice.
  * @returns {array} checkMeld;
  */
 const rollDice = () => {
-	for(let i = 0; i < numberOfDice; i++) {
+	for (let i = 0; i < numberOfDice; i++) {
 		if (diceArr[i].clicked === 0) {
 			diceArr[i].value = Math.floor((Math.random() * numberOfDice) + 1);
 			diceRolled = true;
+			diceToRoll = `#die${i + 1}`;
+			console.log(diceToRoll)
+			// diceRollAnimated();
+			// document.getElementById(`die${i + 1}`).classList.remove('roll');
 		}
+		// if (diceArr[i].clicked === 1) {
+		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
+		// }
 	}
 
 	let repeatMeld = false;
@@ -59,7 +80,7 @@ const rollDice = () => {
 		}	
 		return checkMeld;	
 	});
-	console.log(checkMeld, repeatMeld)
+	console.log(checkMeld, repeatMeld);
 	
 	//conditions to check if the current unclicked dice meet the parameters of a meld.
 	if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
@@ -79,11 +100,10 @@ const rollDice = () => {
 	} else {
 		console.log('We found a meld.')
 	}
-
-	
 	checkMeld = [];
 	meldArr = [];
 	updateDiceImg();
+	// diceRollAnimated();
 };
 
 /**
@@ -95,6 +115,14 @@ const updateDiceImg = () => {
 		let selectedImg = document.getElementById(diceArr[i].id);
 		selectedImg.setAttribute("src", diceImage);
 		selectedImg.classList.toggle("transparent", diceArr[i].clicked === 1);
+		// if (diceArr[i].clicked === 1) {
+		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
+		// }
+		if (diceArr[i].clicked === 0) {
+			console.log(diceToRoll)
+			document.getElementById(`die${i + 1}`).classList.remove('roll');
+			
+		}document.getElementById(`die${i + 1}`).classList.add('roll');
 	}
 };
 
@@ -106,9 +134,10 @@ const willItMeld = (event) => {
 	let dataNumberClicked = event.currentTarget.getAttribute("data-number");
 	let clickedDice = diceArr[dataNumberClicked].value;
 	let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
-
+	// console.log(diceArr[dataNumberClicked].id)
 	if (diceRolled) {
 		if (clickedDice === 1 || clickedDice === 5 || count >= 3) {
+			// document.getElementById(`${diceArr[dataNumberClicked].id}`).classList.remove('roll');
 			textbox.innerHTML = `${clickedDice} melds!`;
 			updateScoreArray(dataNumberClicked);
 		} else {
