@@ -31,18 +31,20 @@ const initializeDice = () => {
 	updateDiceImg();
 };
 
-//////////////////////////////////////////////////////////////////////////
-// const diceRollAnimated = () => {
-// 	for(let i = 0; i < numberOfDice; i++) {
-// 		document.getElementById(`die${i + 1}`).classList.add('roll');
-// 		if (diceArr[i].clicked === 1) {
-// 			document.getElementById(`die${i + 1}`).classList.remove('roll');
-// 		}
-// 		// if (diceArr[i].clicked === 1) {
-// 		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
-// 		// }
-// 	}
-// }
+/**
+ * Adds class to each non selected dice to add a 'roll' animation which is removed after 1s.
+ */
+const animateDiceRoll = () => {
+		for(let i = 0; i < numberOfDice; i++) {
+			let diceID = `die${i + 1}`;
+			if (diceArr[i].clicked === 0) {
+			document.getElementById(diceID).classList.add('roll');
+			setTimeout(() => {
+				document.getElementById(diceID).classList.remove('roll');
+			}, 1000)
+		}
+	}
+};
 
 let diceToRoll = '';
 /**
@@ -56,12 +58,8 @@ const rollDice = () => {
 			diceRolled = true;
 			diceToRoll = `#die${i + 1}`;
 			console.log(diceToRoll)
-			// diceRollAnimated();
-			// document.getElementById(`die${i + 1}`).classList.remove('roll');
-		}
-		// if (diceArr[i].clicked === 1) {
-		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
-		// }
+			animateDiceRoll();	
+		} 
 	}
 
 	let repeatMeld = false;
@@ -103,7 +101,6 @@ const rollDice = () => {
 	checkMeld = [];
 	meldArr = [];
 	updateDiceImg();
-	// diceRollAnimated();
 };
 
 /**
@@ -115,14 +112,6 @@ const updateDiceImg = () => {
 		let selectedImg = document.getElementById(diceArr[i].id);
 		selectedImg.setAttribute("src", diceImage);
 		selectedImg.classList.toggle("transparent", diceArr[i].clicked === 1);
-		// if (diceArr[i].clicked === 1) {
-		// 	document.getElementById(`die${i + 1}`).classList.remove('roll');
-		// }
-		if (diceArr[i].clicked === 0) {
-			console.log(diceToRoll)
-			document.getElementById(`die${i + 1}`).classList.remove('roll');
-			
-		}document.getElementById(`die${i + 1}`).classList.add('roll');
 	}
 };
 
@@ -134,10 +123,9 @@ const willItMeld = (event) => {
 	let dataNumberClicked = event.currentTarget.getAttribute("data-number");
 	let clickedDice = diceArr[dataNumberClicked].value;
 	let count = diceArr.filter(dice => (dice.value === clickedDice)).length;
-	// console.log(diceArr[dataNumberClicked].id)
+
 	if (diceRolled) {
 		if (clickedDice === 1 || clickedDice === 5 || count >= 3) {
-			// document.getElementById(`${diceArr[dataNumberClicked].id}`).classList.remove('roll');
 			textbox.innerHTML = `${clickedDice} melds!`;
 			updateScoreArray(dataNumberClicked);
 		} else {
