@@ -6,6 +6,9 @@ let checkMeld = [];
 let numberOfDice = 6;
 let scoreTotal = 0;
 let diceRolled = false;
+let diceToRoll = '';
+let player1Score = 0;
+let player2Score = 0;
 
 const setupInitializeFunc = () => {
 	initializeDice();
@@ -46,7 +49,6 @@ const animateDiceRoll = () => {
 	}
 };
 
-let diceToRoll = '';
 /**
  * Rolls dice values and sets diceRolled to true to allow user to select dice.
  * @returns {array} checkMeld;
@@ -56,9 +58,7 @@ const rollDice = () => {
 		if (diceArr[i].clicked === 0) {
 			diceArr[i].value = Math.floor((Math.random() * numberOfDice) + 1);
 			diceRolled = true;
-			diceToRoll = `#die${i + 1}`;
-			console.log(diceToRoll)
-			animateDiceRoll();	
+			diceToRoll = `#die${i + 1}`;	
 		} 
 	}
 
@@ -97,6 +97,7 @@ const rollDice = () => {
 		diceRolled = false;
 	} else {
 		console.log('We found a meld.')
+		animateDiceRoll();
 	}
 	checkMeld = [];
 	meldArr = [];
@@ -203,13 +204,47 @@ const calcScore = () => {
  * calls functions to track score totals and reset dice.
  */
 const trackScore = () => {
-	const result = calcScore();
-	meldArr = [];
-	scoreArr = [];
-	setScore(result);
-	initializeDice();
-	diceRolled = false;
-	// trackPlayer();
+	let result = calcScore();
+	if (player1Score <= 1000) {
+		meldArr = [];
+		scoreArr = [];
+		setScore(result);
+		initializeDice();
+		diceRolled = false;
+		/////////////////////////////////////////////////////////////
+		if (player1Score >= 500) {
+			alert('Player 1 wins!')
+			player1Score = 0;
+			player2Score = 0;
+			meldArr = [];
+			scoreArr = [];
+			setScore(0);
+			initializeDice();
+			diceRolled = false;
+			result = 0;
+		}
+		if (player2Score >= 500) {
+			alert('Player 2 wins!')
+			player1Score = 0;
+			player2Score = 0;
+			meldArr = [];
+			scoreArr = [];
+			setScore(0);
+			initializeDice();
+			diceRolled = false;
+			result = 0;
+		}
+		/////////////////////////////////////////////////////////////
+	} else {
+		player1Score = 0;
+		player2Score = 0;
+		meldArr = [];
+		scoreArr = [];
+		setScore(0);
+		initializeDice();
+		diceRolled = false;
+		result = 0;
+	}
 };
 
 let playerOne = true;
@@ -218,14 +253,11 @@ let playerOne = true;
  */
 const setScore = (result) => {
 	const meldToBank = document.getElementById('bank');
-	
 	meldToBank.innerHTML = `0`;
 	playerOne = !playerOne;
 	trackPlayer(result)
 };
 
-let player1Score = 0;
-let player2Score = 0;
 //TODO: Track player score and allow changing of turns
 const setPlayer = () => {
 	const single = document.getElementById('singleplayer');

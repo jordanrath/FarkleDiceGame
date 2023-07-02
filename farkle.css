@@ -251,7 +251,7 @@ input.active + label {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		gap: 150px;
+		gap: 50px;
 		padding-top: 100px;
 	}
 	
