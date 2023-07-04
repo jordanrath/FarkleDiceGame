@@ -7,6 +7,7 @@ let numberOfDice = 6;
 let scoreTotal = 0;
 let diceRolled = false;
 let diceToRoll = '';
+let playerOne = true;
 let player1Score = 0;
 let player2Score = 0;
 
@@ -175,7 +176,7 @@ const calcScore = () => {
 		let currentScore = 0;
 
 		if (num === 1 && count[num] === 3) {
-			currentScore += 1000 - 300;
+			currentScore += 1000 - 200;
 		} else if (num === 1 && count[num] < 3) {
 			currentScore += 100;
 		} else if (num === 5 && count[num] < 3) {
@@ -200,54 +201,52 @@ const calcScore = () => {
 	return result;
 };
 
+const playAgain = () => {
+	console.log(player1Score)
+	if (player1Score >= 500) {
+		console.log('Player 1 wins!')
+	}
+	if (player2Score >= 500) {
+		console.log('Player 2 wins!')
+	}
+
+	// player1Score = 0;
+	// player2Score = 0;
+	// meldArr = [];
+	// scoreArr = [];
+	// setScore(0);
+	// // trackPlayer(0);
+	// initializeDice();
+	// diceRolled = false;
+	// result = 0;
+};
+
 /**
  * calls functions to track score totals and reset dice.
  */
 const trackScore = () => {
 	let result = calcScore();
-	if (player1Score <= 1000) {
+
+	if (player1Score + result < 500) {
 		meldArr = [];
 		scoreArr = [];
 		setScore(result);
 		initializeDice();
 		diceRolled = false;
-		/////////////////////////////////////////////////////////////
-		if (player1Score >= 500) {
-			alert('Player 1 wins!')
-			player1Score = 0;
-			player2Score = 0;
-			meldArr = [];
-			scoreArr = [];
-			setScore(0);
-			initializeDice();
-			diceRolled = false;
-			result = 0;
-		}
-		if (player2Score >= 500) {
-			alert('Player 2 wins!')
-			player1Score = 0;
-			player2Score = 0;
-			meldArr = [];
-			scoreArr = [];
-			setScore(0);
-			initializeDice();
-			diceRolled = false;
-			result = 0;
-		}
-		/////////////////////////////////////////////////////////////
+		console.log(player1Score)
 	} else {
-		player1Score = 0;
-		player2Score = 0;
-		meldArr = [];
-		scoreArr = [];
-		setScore(0);
-		initializeDice();
-		diceRolled = false;
-		result = 0;
+		playAgain();
+		// player1Score = 0;
+		// player2Score = 0;
+		// meldArr = [];
+		// scoreArr = [];
+		// setScore(0);
+		// initializeDice();
+		// diceRolled = false;
+		// result = 0;
 	}
 };
 
-let playerOne = true;
 /**
  * Sets score depending on player.
  */
@@ -291,7 +290,7 @@ const setPlayer = () => {
 
 const trackPlayer = (result) => {
 	let playerScore = result;
-
+ 
 	const playerOneScore = document.getElementById('player1');
 	const playerTwoScore = document.getElementById('player2');
 	
