@@ -5,6 +5,7 @@ let meldArr = [];
 let checkMeld = [];
 let numberOfDice = 6;
 let scoreTotal = 0;
+let initializeTurn = false;
 let diceRolled = false;
 let diceToRoll = '';
 let playerOne = true;
@@ -34,6 +35,7 @@ const initializeDice = () => {
 		diceArr[i].clicked = 0;
 	}
 	updateDiceImg();
+	initializeTurn = true;
 };
 
 /**
@@ -56,54 +58,65 @@ const animateDiceRoll = () => {
  * @returns {array} checkMeld;
  */
 const rollDice = () => {
-	for (let i = 0; i < numberOfDice; i++) {
-		if (diceArr[i].clicked === 0) {
-			diceArr[i].value = Math.floor((Math.random() * numberOfDice) + 1);
-			diceRolled = true;
-			diceToRoll = `#die${i + 1}`;
-		} 
-	}
-
 	let repeatMeld = false;
 	let textbox = document.getElementById('meld-text');
-	let counted = diceArr.filter(dice => (dice.clicked === 0)).length;
+	let counted = diceArr.filter(dice => (dice.clicked === 0)).length;	
 
-	const allEqual = (arr) => checkMeld.every(val => val === arr[0]);
+	if (initializeTurn) {
+		for (let i = 0; i < numberOfDice; i++) {
+			if (diceArr[i].clicked === 0) {
+				diceArr[i].value = Math.floor((Math.random() * numberOfDice) + 1);
+				diceRolled = true;
+				diceToRoll = `#die${i + 1}`;
+			} 
+		}
 
-	//map through after each dice roll creating a new array to store unclicked dice.
-	diceArr.map(click => {	
-		repeatMeld = allEqual(checkMeld);
+		const allEqual = (arr) => checkMeld.every(val => val === arr[0]);
 
-		if (click.clicked === 0) {
-			checkMeld.push(click.value);
-		}	
-		return checkMeld;	
-	});
-	
-	//conditions to check if the current unclicked dice meet the parameters of a meld.
-	if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
-		console.log(`The array [${checkMeld}] didn't contain any melds.`)
-		textbox.innerHTML = `There are no melds, try again!`;
-		score = 0;
-		setScore(0);
-		initializeDice();
-		scoreArr = [];
-		diceRolled = false;
-	} else if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 6 && repeatMeld == false) {
-		console.log(`The array [${checkMeld}] didn't contain any melds and there were no repeating numbers.`)
-		textbox.innerHTML = `There are no melds, try again!`;
-		score = 0;
-		setScore(0);
-		initializeDice();
-		scoreArr = [];
-		diceRolled = false;
-	} else {
-		console.log('We found a meld.')
-		animateDiceRoll();
+		//map through after each dice roll creating a new array to store unclicked dice.
+		diceArr.map(click => {	
+			repeatMeld = allEqual(checkMeld);
+
+			if (click.clicked === 0) {
+				checkMeld.push(click.value);
+			}	
+			return checkMeld;	
+		});
+
+		//conditions to check if the current unclicked dice meet the parameters of a meld.
+		if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
+			console.log(`The array [${checkMeld}] didn't contain any melds.`)
+			textbox.innerHTML = `There are no melds, try again!`;
+			score = 0;
+			setScore(0);
+			initializeDice();
+			scoreArr = [];
+			diceRolled = false;
+			initializeTurn = false;
+		} else if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 6 && repeatMeld == false) {
+			console.log(`The array [${checkMeld}] didn't contain any melds and there were no repeating numbers.`)
+			textbox.innerHTML = `There are no melds, try again!`;
+			score = 0;
+			setScore(0);
+			initializeDice();
+			scoreArr = [];
+			diceRolled = false;
+			initializeTurn = false;
+		} else {
+			console.log('We found a meld.')
+			animateDiceRoll();
+		}
+		console.log(initializeTurn)
+		checkMeld = [];
+		meldArr = [];
+		updateDiceImg();
+		initializeTurn = false;
+	} else if (!initializeTurn) {
+		textbox.innerHTML = `Select a dice to meld before rolling again!`;
+		//////////////////////////////////////////////////////////////////
+		initializeTurn = true;
 	}
-	checkMeld = [];
-	meldArr = [];
-	updateDiceImg();
+	console.log(meldArr, scoreArr, scoreTotal)
 };
 
 /**
@@ -118,6 +131,8 @@ const updateDiceImg = () => {
 	}
 };
 
+////////////////////////////////// INITIALIZE TURN needs to be set to if the length of the score array is larger then allow user to click Roll Dice
+
 /**
  * Checks to see if clicked dice can be used.
  */
@@ -131,6 +146,7 @@ const willItMeld = (event) => {
 		if (clickedDice === 1 || clickedDice === 5 || count >= 3) {
 			textbox.innerHTML = `${clickedDice} melds!`;
 			updateScoreArray(dataNumberClicked);
+			initializeTurn = true;
 		} else {
 			textbox.innerHTML = `${clickedDice} is not part of a meld.`
 		}
