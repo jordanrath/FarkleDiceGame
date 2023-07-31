@@ -2,11 +2,18 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="farkle.css">
-	<script type="text/javascript" src="farkle.js"></script>
+	<!-- <script type="text/javascript" src="farkle.js"></script> -->
 	<title>Farkle!</title>
 </head>
 
 <body onload="setupInitializeFunc()">
+	<section class="modal hidden">
+		<div id="flex-container" class="flex-container">
+
+		</div>
+	</section>
+	<div class="overlay hidden"></div>
+	<button class="btn btn-open">Juice the modal</button>
 	<header class="header">Welcome to Farkle!</header>
 	<div class="container-main">
 		<div class="container-main__left">
@@ -146,5 +153,6 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="farkle.js"></script>
 </body>
 </html>
