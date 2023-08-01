@@ -371,6 +371,8 @@ const trackPlayer = (result) => {
 	
 	const multi = document.getElementById('multiplayer');
 
+	/////player active cue
+
 	if (multi.classList.contains('active')) {
 		if (!playerOne) {
 			player1Score += playerScore;
@@ -378,6 +380,8 @@ const trackPlayer = (result) => {
 			if (player1Score > 500) {
 				console.log('Player 1 wins!')
 				openModal('Player One');
+				player1Score = 0;
+				playerOneScore.innerHTML = `P1 Total : ${player1Score}`;
 			}
 		} else {
 			player2Score += playerScore;
@@ -385,6 +389,10 @@ const trackPlayer = (result) => {
 			if (player2Score > 500) {
 				console.log('Player 2 wins!')
 				openModal('Player Two');
+				player1Score = 0;
+				player2Score = 0;
+				playerOneScore.innerHTML = `P1 Total : ${player1Score}`;
+				playerTwoScore.innerHTML = `P1 Total : ${player2Score}`;
 			}
 		}
 	} else {
@@ -395,6 +403,8 @@ const trackPlayer = (result) => {
 			playerOneScore.innerHTML = `P1 Total : ${player1Score}`;
 			console.log('Player 1 wins!')
 			openModal('Player One');
+			player1Score = 0;
+			playerOneScore.innerHTML = `P1 Total : ${player1Score}`;
 		}
 	}
 };
@@ -402,27 +412,74 @@ const trackPlayer = (result) => {
 
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
-
-const openModalBtn = document.querySelector(".btn-open");
+// const openModalBtn = document.querySelector(".btn-open");
 
 const openModal = (winner) => {
 	modal.classList.remove("hidden");
 	overlay.classList.remove("hidden");
 
+	const user = `<p class="modal-text">${winner}</p>`;
+
 	const modalContent = document.getElementById("flex-container");
-	modalContent.innerHTML += `<p>Congratulations ${winner}! You won!</p>`
+	const confetti = document.getElementById("confetti-container");
+	modalContent.innerHTML = `
+		<div class="modal-text__container">
+			${user}
+			<p class="modal-text">wins!</p>
+		</div>
+		<button class="btn btn-play">Play Again!</button>
+	`
+
+	confetti.innerHTML = `
+		<div class="container">
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+			<div class="confetti"></div>
+  		</div>
+	`
+	const playAgainBtn = document.querySelector(".btn-play");
+	playAgainBtn.addEventListener("click", initializeDice);
+	playAgainBtn.addEventListener("click", closeModal);
+
+	let textbox = document.getElementById('meld-text');
+	textbox.innerHTML = 'Roll the dice to start your turn!'
 };
 
-openModalBtn.addEventListener("click", openModal);
+// openModalBtn.addEventListener("click", openModal);
 
 const closeModal = () => {
 	modal.classList.add("hidden");
 	overlay.classList.add("hidden");
+
+	const confetti = document.getElementById("confetti-container");
+	confetti.innerHTML = ``;
 };
+
+
 
 overlay.addEventListener("click", closeModal);
 
-
+// initialScore = 0;
+	// currentScore = 0;
+	// totalScore = 0;
+	// setScore(0);
+	// initializeDice();
+	// scoreArr = [];
+	// meldArr = [];
+	// diceRolled = false;
+	// initializeTurn = false;
 
 
 // const modal = document.querySelector(".modal");

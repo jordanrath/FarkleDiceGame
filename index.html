@@ -7,19 +7,20 @@
 </head>
 
 <body onload="setupInitializeFunc()">
-	<section class="modal hidden">
-		<div id="flex-container" class="flex-container">
-
-		</div>
+	<div id="confetti-container"></div>
+	<section id="modal" class="modal hidden">
+		<div id="flex-container" class="flex-container"></div>
 	</section>
 	<div class="overlay hidden"></div>
-	<button class="btn btn-open">Juice the modal</button>
 	<header class="header">Welcome to Farkle!</header>
+	<!-- <button class="btn btn-open">Juice the modal</button> -->
 	<div class="container-main">
 		<div class="container-main__left">
 			<!--  Player Score -->
 			<div class="container-score">
+				<div id="player-active"></div>
 				<div id="player1" class="score"> P1 Total : 0 </div>
+				<div id="player-active"></div>
 				<div id="player2" class="score hide"> P2 Total : 0 </div>
 			</div>
 			<div class="meld-textbox">
@@ -78,11 +79,11 @@
 				</button>
 			</div>
 			<!-- Player Buttons -->	
-			<div class="container-player-radios">
+			<div class="btn-row container-player-radios">
 				<input type="radio" name="players" id="singleplayer" value="singleplayer" class="active" onclick="setPlayer()" >
-				<label for="singleplayer" class="players single">Single Player</label>
+				<label for="singleplayer" class="button players single">Single Player</label>
 				<input type="radio" name="players" id="multiplayer" value="multiplayer" onclick="setPlayer()" >
-				<label for="multiplayer" class="players multi">Multiplayer</label>
+				<label for="multiplayer" class="button players multi">Multiplayer</label>
 			</div>
 		</div>
 			<div class="container-main__right">
