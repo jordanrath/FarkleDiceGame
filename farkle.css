@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Handjet&family=Press+Start+2P&family=Ysabeau+SC:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet&family=Orbitron&family=Press+Start+2P&display=swap');
 
 :root {
     --primary: #64b4f6;
@@ -44,11 +44,22 @@ p {
 
 .container-main {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
+	height: 100%;
 	gap: 150px;
-	padding-top: 100px;
+	padding: 100px;
+}
+
+.container-main__row {
+	display: inherit;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 10%;
 }
 
 .container-main__left {
@@ -74,13 +85,33 @@ p {
 }
 
 .container-score {
-	display: inherit;
+	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	gap: 75px;
+	justify-content: space-around;
+	/* gap: 75px; */
 	width: 100%;
 	font-family: 'Handjet', cursive;
 }
+
+#player1-container,
+#player2-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* #player1-active {
+	background-color: red;
+	width: 10px;
+	height: 10px;
+}
+
+#player2-active {
+	background-color: red;
+	width: 10px;
+	height: 10px;
+} */
 
 .score {
 	display: inherit;
@@ -89,6 +120,12 @@ p {
 	max-height: 100%;
 	font-size: 32px;
 	text-align: center;
+}
+
+.score.active {
+	color: var(--secondary);
+	text-decoration: overline;
+	transition: all 0.5s;
 }
 
 .hide {
@@ -356,23 +393,13 @@ input.active + label {
 @media screen and (max-width: 1100px) {
 	.container-main {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
 		gap: 25px;
-		padding-top: 100px;
 	}
-	
-	.container-main__left {
-		display: flex;
+
+	.container-main__row {
+		display: inherit;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 30px;
-	}
-	
-	.container-main__right {
-		display: flex;	
+		gap: 25px;
 	}
 }
 
