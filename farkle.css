@@ -88,9 +88,11 @@ p {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	/* gap: 75px; */
-	width: 100%;
 	font-family: 'Handjet', cursive;
+}
+
+.container-score.multiplayer {
+	width: 100%;
 }
 
 #player1-container,
@@ -101,23 +103,18 @@ p {
 	align-items: center;
 }
 
-/* #player1-active {
-	background-color: red;
-	width: 10px;
-	height: 10px;
+.container-score.container-score.multiplayer #player1-container,
+.container-score.container-score.multiplayer #player2-container {
+	width: 200px;
 }
-
-#player2-active {
-	background-color: red;
-	width: 10px;
-	height: 10px;
-} */
 
 .score {
 	display: inherit;
 	flex-direction: row;
+	justify-content: center;
 	color: var(--on-primary);
 	max-height: 100%;
+	width: 100%;
 	font-size: 32px;
 	text-align: center;
 }
@@ -125,11 +122,17 @@ p {
 .score.active {
 	color: var(--secondary);
 	text-decoration: overline;
-	transition: all 0.5s;
+	transition: all 0.8s;
 }
 
 .hide {
 	display: none;
+	width: 0;
+}
+
+#player2-container .hide {
+	display: none;
+	width: 0;
 }
 
 .meld-textbox {

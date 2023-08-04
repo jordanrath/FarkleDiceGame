@@ -60,6 +60,27 @@ const animateDiceRoll = () => {
 };
 
 /**
+ * Checks dice rolled for occurences of 3 or more of the same dice values.
+ * @returns {Boolean} result;
+ */
+const tripleChecker = (meldArr) => {
+	const counter = {};
+  
+	meldArr.forEach(num => {
+	  if (counter[num]) {
+		counter[num] += 1;
+	  } else {
+		counter[num] = 1;
+	  }
+	});
+	let newArr = Object.values(counter);
+	let check = newArr.map(val => val >= 3);
+	
+	let result = check.includes(true);
+	return result;
+  };
+
+/**
  * Rolls dice values and sets diceRolled to true to allow user to select dice.
  * @returns {array} checkMeld;
  */
@@ -83,7 +104,7 @@ const rollDice = () => {
 		//map through after each dice roll creating a new array to store unclicked dice.
 		diceArr.map(click => {	
 			repeatMeld = allEqual(checkMeld);
-
+			console.log(repeatMeld)
 			if (click.clicked === 0) {
 				checkMeld.push(click.value);
 			}	
@@ -91,7 +112,7 @@ const rollDice = () => {
 		});
 
 		//conditions to check if the current unclicked dice meet the parameters of a meld.
-		if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
+		if (!tripleChecker(checkMeld) && !checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 3) {
 			console.log(`The array [${checkMeld}] didn't contain any melds.`)
 			textbox.innerHTML = `There are no melds, try again!`;
 			totalScore = initialScore;
@@ -103,7 +124,7 @@ const rollDice = () => {
 			scoreArr = [];
 			diceRolled = false;
 			initializeTurn = true;
-		} else if (!checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 6 && repeatMeld == false) {
+		} else if (!tripleChecker(checkMeld) && !checkMeld.includes(1) && !checkMeld.includes(5) && counted <= 6 && repeatMeld == false) {
 			console.log(`The array [${checkMeld}] didn't contain any melds and there were no repeating numbers.`)
 			textbox.innerHTML = `There are no melds, try again!`;
 			totalScore = initialScore;
@@ -115,28 +136,25 @@ const rollDice = () => {
 			scoreArr = [];
 			diceRolled = false;
 			initializeTurn = true;
-			////////////////////////////////////////////////////////////////////////////////////////////////
 		} else if (checkMeld.includes(1) && checkMeld.includes(2) && checkMeld.includes(3) & checkMeld.includes(4) && checkMeld.includes(5) && checkMeld.includes(6)) {
-			////////////////////////////////////
 			totalScore = initialScore + 2500;
 			setScore(2500);
 			initializeDice();
 			scoreArr = [];
 			diceRolled = false;
 			initializeTurn = true;
-			alert('Full run!')
+			textbox.innerHTML = `Full run!`;
 		} 
 		else {
 			console.log('We found a meld.')
 			animateDiceRoll();
+			console.log(checkMeld, tripleChecker(checkMeld))
 		}
 		checkMeld = [];
 		meldArr = [];
 		updateDiceImg();
-		// initializeTurn = true;
 
 	} else if (!initializeTurn) {
-		//////////////////////////////////////////////////////////////////
 		initializeTurn = false;
 		textbox.innerHTML = `Select a dice to meld before rolling again!`;
 	}
@@ -278,7 +296,6 @@ const trackScore = () => {
 		diceRolled = false;
 		initialScore = 0;
 		totalScore = 0;
-		// currentScore = 0;
 	} else if (!playerOne) {
 		p2TotalScore = result + totalScore;
 		meldArr = [];
@@ -288,7 +305,6 @@ const trackScore = () => {
 		diceRolled = false;
 		initialScore = 0;
 		totalScore = 0;
-		// currentScore = 0;
 	} else if (p1TotalScore > 200) {
 		playAgain();
 		console.log(p1TotalScore, p2TotalScore)
@@ -337,12 +353,14 @@ const setPlayer = () => {
 	const playerTwoScore = document.getElementById('player2');
 	const trackPlayer1 = document.querySelector("#player1");
 	const trackPlayer2 = document.querySelector("#player2");
+	const scoreContainer = document.querySelector(".container-score");
 	
 	if (single.checked) {
 		console.log('Singleplayer Selected')
 		single.classList.add('active');
 		multi.classList.remove('active');
 		playersVisible.classList.add('hide');
+		scoreContainer.classList.remove('multiplayer');
 		initializeDice();
 		meldArr = [];
 		trackPlayer1.classList.remove('active');
@@ -356,6 +374,7 @@ const setPlayer = () => {
 		single.classList.remove('active');
 		multi.classList.add('active');
 		playersVisible.classList.remove('hide');
+		scoreContainer.classList.add('multiplayer');
 		initializeDice();
 		meldArr = [];
 		trackPlayer1.classList.add('active');
@@ -494,41 +513,6 @@ const closeModal = () => {
 
 
 overlay.addEventListener("click", closeModal);
-
-// initialScore = 0;
-	// currentScore = 0;
-	// totalScore = 0;
-	// setScore(0);
-	// initializeDice();
-	// scoreArr = [];
-	// meldArr = [];
-	// diceRolled = false;
-	// initializeTurn = false;
-
-
-// const modal = document.querySelector(".modal");
-// const overlay = document.querySelector(".overlay");
-// const openModalBtn = document.querySelector(".btn-open");
-
-// // close modal function
-// const closeModal = function () {
-//   modal.classList.add("hidden");
-//   overlay.classList.add("hidden");
-// };
-
-// // close the modal when the close button and overlay is clicked
-// overlay.addEventListener("click", closeModal);
-
-// // close modal when the Esc key is pressed
-
-// // open modal function
-// const openModal = function () {
-//   modal.classList.remove("hidden");
-//   overlay.classList.remove("hidden");
-// };
-// // open modal event
-// openModalBtn.addEventListener("click", openModal);
-
 
 
 // create player1 & player 2 initialScore
